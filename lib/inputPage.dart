@@ -1,4 +1,8 @@
+import 'package:bmi/constants/colors.dart';
+import 'package:bmi/widgets/Reusebalecard.dart';
+import 'package:bmi/widgets/gendercards.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -19,26 +23,48 @@ class _InputPageState extends State<InputPage> {
               ReuseableCards(
                 height: MediaQuery.of(context).size.height / 4,
                 width: MediaQuery.of(context).size.width / 2.5,
+                colour: activeCardColour,
+                cardWidget: GenderCards(
+                  gender: "Male",
+                  genderIcon: Icon(FontAwesomeIcons.mars),
+                ),
               ),
               ReuseableCards(
                 height: MediaQuery.of(context).size.height / 4,
                 width: MediaQuery.of(context).size.width / 2.5,
+                colour: activeCardColour,
+                cardWidget: GenderCards(
+                  gender: "Female",
+                  genderIcon: Icon(FontAwesomeIcons.venus),
+                ),
               ),
             ],
           ),
           ReuseableCards(
             height: MediaQuery.of(context).size.height / 4,
             width: MediaQuery.of(context).size.width,
+            colour: activeCardColour,
+            cardWidget: null,
           ),
           Row(
             children: <Widget>[
               ReuseableCards(
                 height: MediaQuery.of(context).size.height / 4,
                 width: MediaQuery.of(context).size.width / 2.5,
+                colour: activeCardColour,
+                cardWidget: Column(
+                  children: <Widget>[
+                    Icon(
+                      FontAwesomeIcons.male,
+                    )
+                  ],
+                ),
               ),
               ReuseableCards(
                 height: MediaQuery.of(context).size.height / 4,
                 width: MediaQuery.of(context).size.width / 2.5,
+                colour: activeCardColour,
+                cardWidget: null,
               ),
             ],
           ),
@@ -47,6 +73,7 @@ class _InputPageState extends State<InputPage> {
             child: MaterialButton(
               minWidth: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 12,
+
               child: Text(
                 "Calculate your BMI".toUpperCase(),
                 style: TextStyle(
@@ -59,32 +86,6 @@ class _InputPageState extends State<InputPage> {
             ),
           )
         ],
-      ),
-      floatingActionButton: Theme(
-          data: ThemeData(accentColor: Colors.red),
-          child: FloatingActionButton(
-            onPressed: () {},
-            child: Icon(Icons.add),
-          )),
-    );
-  }
-}
-
-class ReuseableCards extends StatelessWidget {
-  double height, width;
-  ReuseableCards({
-    @required this.height,
-    @required this.width,
-  });
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        height: height,
-        width: width,
-        margin: EdgeInsets.all(17),
-        decoration: BoxDecoration(
-            color: Color(0xFF1D1E33), borderRadius: BorderRadius.circular(10)),
       ),
     );
   }
