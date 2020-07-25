@@ -1,4 +1,5 @@
 import 'package:bmi/constants/colors.dart';
+import 'package:bmi/enums/gender.dart';
 import 'package:bmi/widgets/Reusebalecard.dart';
 import 'package:bmi/widgets/gendercards.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,23 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+  Color maleActiveCardColor;
+  Color femaleActiveCardColor;
+  //gender gendertype;
+
+  void updateColorState(gender selectedGender) {
+    if (selectedGender == gender.male) {
+      maleActiveCardColor = activeCardColour;
+    } else {
+      maleActiveCardColor = inactiveCardColour;
+    }
+    if (selectedGender == gender.female) {
+      femaleActiveCardColor = activeCardColour;
+    } else {
+      femaleActiveCardColor = inactiveCardColour;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,33 +36,64 @@ class _InputPageState extends State<InputPage> {
       ),
       body: Column(
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              ReuseableCards(
-                height: MediaQuery.of(context).size.height / 4,
-                width: MediaQuery.of(context).size.width / 2.5,
-                colour: activeCardColour,
-                cardWidget: GenderCards(
-                  gender: "Male",
-                  genderIcon: Icon(FontAwesomeIcons.mars),
+          Expanded(
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        updateColorState(gender.male);
+                      });
+                    },
+                    child: ReuseableCards(
+                      height: MediaQuery.of(context).size.height / 4,
+                      width: MediaQuery.of(context).size.width / 2.5,
+                      colour: maleActiveCardColor,
+                      cardWidget: GenderCards(
+                        gender: "Male",
+                        genderIcon: Icon(FontAwesomeIcons.mars),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-              ReuseableCards(
-                height: MediaQuery.of(context).size.height / 4,
-                width: MediaQuery.of(context).size.width / 2.5,
-                colour: activeCardColour,
-                cardWidget: GenderCards(
-                  gender: "Female",
-                  genderIcon: Icon(FontAwesomeIcons.venus),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        updateColorState(gender.female);
+                      });
+                    },
+                    child: ReuseableCards(
+                      height: MediaQuery.of(context).size.height / 4,
+                      width: MediaQuery.of(context).size.width / 2.5,
+                      colour: femaleActiveCardColor,
+                      cardWidget: GenderCards(
+                        gender: "Female",
+                        genderIcon: Icon(FontAwesomeIcons.venus),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          ReuseableCards(
-            height: MediaQuery.of(context).size.height / 4,
-            width: MediaQuery.of(context).size.width,
-            colour: activeCardColour,
-            cardWidget: null,
+          Expanded(
+            child: ReuseableCards(
+              height: MediaQuery.of(context).size.height / 4,
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.all(10),
+              colour: activeCardColour,
+              cardWidget: Column(
+                children: <Widget>[
+                  Text(
+                    "Height",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  Text(""),
+                ],
+              ),
+            ),
           ),
           Row(
             children: <Widget>[
